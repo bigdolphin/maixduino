@@ -29,9 +29,9 @@ gc.collect()
 micropython.mem_info()
 mem_heap = utils.gc_heap_size()
 print("Heap size: %d bytes" % (mem_heap))
-if mem_heap != 1048576:
+if mem_heap != 786432:
     print("Increasing heap size...")
-    utils.gc_heap_size(1048576)
+    utils.gc_heap_size(786432)
     reset()
 print('-----------------------------')
 ###################################
