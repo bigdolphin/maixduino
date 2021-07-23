@@ -5,7 +5,9 @@ import KPU as kpu
 
 ###################################
 # Check frequencies and overclock
-from Maix import freq
+import gc, micropython
+from Maix import freq, GPIO, utils
+from machine import reset
 
 cpu_frq, kpu_frq=freq.get()
 print("\nCPU Frq = %d MHz" % (cpu_frq))
@@ -17,6 +19,16 @@ if cpu_frq != 546 or kpu_frq != 450:
     print("Overclocking CPU to 546 MHz and KPU to 450 MHz...")
     # kpu frequency is pll1/kpu_div
     freq.set (cpu=546, pll1=450, kpu_div=1)
+
+gc.collect()
+micropython.mem_info()
+mem_heap = utils.gc_heap_size()
+print("Heap size: %d bytes" % (mem_heap))
+if mem_heap < 1000000:
+    print("Increasing heap size...")
+    utils.gc_heap_size(1048576)
+    reset()
+print('-----------------------------')
 ###################################
 
 lcd.init(freq=15000000)
