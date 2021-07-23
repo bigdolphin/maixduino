@@ -101,5 +101,6 @@ while True:
     else:
         lcd.draw_string(8,8 ,"Detected number: NaN ",lcd.WHITE,lcd.BLACK)
         lcd.draw_string(8,24,"---> Confidence: %.1f%% " % (pmax_mnist*100),lcd.WHITE,lcd.BLACK)
+    gc.collect()
 
 kpu.deinit(task)
