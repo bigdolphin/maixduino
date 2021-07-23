@@ -3,7 +3,6 @@ import sensor, image, time, lcd, gc, micropython
 import lvgl as lv
 import lvgl_helper as lv_h
 
-from Maix import GPIO, utils
 from fpioa_manager import fm
 from board import board_info
 from machine import Timer
@@ -11,10 +10,12 @@ from machine import Timer
 ###################################
 print('\n-----------------------------')
 # Check frequencies and overclock
-from Maix import freq
+import gc, micropython
+from Maix import freq, GPIO, utils
+from machine import reset
 
 cpu_frq, kpu_frq=freq.get()
-print("CPU Frq = %d MHz" % (cpu_frq))
+print("\nCPU Frq = %d MHz" % (cpu_frq))
 print("KPU Frq = %d MHz" % (kpu_frq))
 
 if cpu_frq != 546 or kpu_frq != 450:
@@ -26,6 +27,12 @@ if cpu_frq != 546 or kpu_frq != 450:
 
 gc.collect()
 micropython.mem_info()
+mem_heap = utils.gc_heap_size()
+print("Heap size: %d bytes" % (mem_heap))
+if mem_heap < 1000000:
+    print("Increasing heap size...")
+    utils.gc_heap_size(1048576)
+    reset()
 print('-----------------------------')
 ###################################
 
