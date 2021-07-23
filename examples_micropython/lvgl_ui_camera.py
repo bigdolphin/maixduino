@@ -162,3 +162,4 @@ while True:
         timer_flag = 0
         led_state = ~led_state
         led_rgb(1,1,led_state)
+    gc.collect()
