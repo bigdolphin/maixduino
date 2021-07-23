@@ -77,6 +77,7 @@ def on_timer(timer):
     lv.tick_inc(timer_period)
 
 led_rgb(0,1,1)
+clock = time.clock()
 
 # Init LCD
 lcd.init(freq=15000000)
@@ -139,8 +140,11 @@ led_state = 0
 # Target rect 50x50 center of QVGA.
 target_rect = [(224-100)//2, (224-100)//2, 100, 100]
 while True:
+    clock.tick()
     # Capture camera
     snapshot = sensor.snapshot()
+    fps =clock.fps()
+    lcd.draw_string(2,2 ,("%2.1ffps" %(fps)),lcd.WHITE,lcd.BLACK)
     # Draw target rectangle
     snapshot.draw_rectangle(target_rect,color=(0,255,0),thickness=5)
     # Resize to fit into image frame on screen
