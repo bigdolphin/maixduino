@@ -25,13 +25,16 @@ if cpu_frq != 546 or kpu_frq != 450:
     # kpu frequency is pll1/kpu_div
     freq.set (cpu=546, pll1=450, kpu_div=1)
 
+gc.enable()
 gc.collect()
+gc.threshold(gc.mem_free() // 4 + gc.mem_alloc())
 micropython.mem_info()
 mem_heap = utils.gc_heap_size()
-print("Heap size: %d bytes" % (mem_heap))
-if mem_heap != 786432:
-    print("Increasing heap size...")
-    utils.gc_heap_size(786432)
+heap_free = utils.heap_free()
+print("Heap size: %d bytes, free: %d bytes" % (mem_heap,heap_free))
+if mem_heap != 262144:
+    print("Decreasing GC heap size...")
+    utils.gc_heap_size(262144)
     reset()
 print('-----------------------------')
 ###################################
