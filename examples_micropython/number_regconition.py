@@ -27,9 +27,9 @@ micropython.mem_info()
 mem_heap = utils.gc_heap_size()
 heap_free = utils.heap_free()
 print("Heap size: %d bytes, free: %d bytes" % (mem_heap,heap_free))
-if mem_heap != 262144:
+if mem_heap != 393216:
     print("Decreasing GC heap size...")
-    utils.gc_heap_size(262144)
+    utils.gc_heap_size(393216)
     reset()
 print('-----------------------------')
 ###################################
