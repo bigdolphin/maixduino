@@ -146,6 +146,7 @@ while True:
     clock.tick()
     # Capture camera
     snapshot = sensor.snapshot()
+    # Get real FPS
     fps =clock.fps()
     lcd.draw_string(2,2 ,("%2.1ffps" %(fps)),lcd.WHITE,lcd.BLACK)
     # Draw target rectangle
