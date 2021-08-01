@@ -13,6 +13,7 @@ print('\n-----------------------------')
 import gc, micropython
 from Maix import freq, GPIO, utils
 from machine import reset
+import os
 
 cpu_frq, kpu_frq=freq.get()
 print("\nCPU Frq = %d MHz" % (cpu_frq))
